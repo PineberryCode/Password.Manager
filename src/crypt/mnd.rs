@@ -3,10 +3,19 @@ use crate::util::discover::{reader};
 use regex::Regex;
 use sha256::digest;
 
-pub fn mnd(text: &str, keyword: &str) -> String {
-    let mut join: &str = &(text.to_owned() + keyword);
-    let val = digest(&mut join);
-    val
+pub struct Matrix {
+    pub matrix: [[String; 3]; 3]
+}
+
+impl Matrix {
+    pub fn show_matrix(&self) {
+        for row in &self.matrix {
+            for element in row {
+                print!("{}", element);
+            }
+            println!();
+        }
+    }
 }
 
 pub fn mnd_encrypt(filename: &str, keyword: &str) {
@@ -16,8 +25,4 @@ pub fn mnd_encrypt(filename: &str, keyword: &str) {
         },
         Err(e) => eprintln!("Couldn't read the file: {}", e)
     }
-}
-
-pub fn decode_base64(text: &str) {
-
 }
