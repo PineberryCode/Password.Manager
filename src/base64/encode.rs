@@ -1,7 +1,7 @@
 
 use regex::Regex;
 
-pub fn encode_base64(text: &str) {
+pub fn encode_base64(text: &str) -> String {
     let text_clean = text.trim();
 
     let output = find_ascii(text_clean);
@@ -23,7 +23,6 @@ pub fn encode_base64(text: &str) {
             let res = 6 - part.len();
             binary_str.push_str(&"0".repeat(res));
         }
-
         let base64 = u8::from_str_radix(binary_str.as_str(), 2).unwrap();
 
         let base64_char = match base64 {
@@ -38,7 +37,9 @@ pub fn encode_base64(text: &str) {
         builder_encoded.push(base64_char);
     }
 
-    fill_output(text_clean, text_clean.len() as u8, builder_encoded.as_str());
+    let output = fill_output(text_clean, text_clean.len() as u8, builder_encoded.as_str());
+
+    output.to_string()
 }
 
 fn find_ascii(text: &str) -> Vec<u8> {
@@ -70,7 +71,7 @@ fn fill_output(
     original_text: &str,
     len_characters: u8,
     text_encoded: &str
-) {
+) -> String {
     let mut text = String::from(text_encoded);
 
     if original_text.len() % 3 != 0 && len_characters % 2 == 0 {
@@ -79,5 +80,5 @@ fn fill_output(
         text.push_str("==");
     }
 
-    println!("{}", text);
+    text
 }

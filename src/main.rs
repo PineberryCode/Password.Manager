@@ -9,13 +9,14 @@ use crate::base64::{encode, decode};
 
 fn main() {
 
-    //println!("Enter a word");
-    //let mut input = String::new();
-    //let _ = io::stdin().read_line(&mut input).expect("Input error!");
+    println!("Enter a word");
+    let mut input = String::new();
+    let _ = io::stdin().read_line(&mut input).expect("Input error!");
     //crypt_mnd::encode_base64(&input);
-    //encode::encode_base64(&input);
-    //decode::decode_base64("Zw==");
-    let mut m = mnd::Matrix {
+    let output = encode::encode_base64(&input);
+    println!("Encode output: {}", output);
+    println!("Decode output: {}",decode::decode_base64(&output));
+    /*let mut m = mnd::Matrix {
         matrix: Default::default()
     };
 
@@ -29,5 +30,5 @@ fn main() {
     m.matrix[2][1] = "[C02]".to_string();
     m.matrix[2][2] = "[C03]".to_string();
     
-    m.show_matrix();
+    m.show_matrix();*/
 }
