@@ -1,5 +1,5 @@
 use std::fs;
-use std::io::{self, BufReader, Read};
+use std::io::{self, BufReader, Read, Write};
 
 pub fn reader(path: &str) -> Result<String, io::Error> {
     let file = match fs::File::open(path) {
@@ -19,4 +19,9 @@ pub fn reader(path: &str) -> Result<String, io::Error> {
     }
 
     Ok(content)
+}
+
+pub fn writer(path: &str, input_str: &str) {
+    let mut file = fs::File::create(path).expect("Creation failed");
+    file.write(input_str.as_bytes()).expect("Write failed");
 }

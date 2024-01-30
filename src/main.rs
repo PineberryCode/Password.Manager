@@ -2,33 +2,18 @@ mod base64;
 mod crypt;
 mod util;
 
-use std::io;
-
 use crate::crypt::{mnd};
+use crate::util::discover::{reader,writer};
 use crate::base64::{encode, decode};
 
 fn main() {
-
-    println!("Enter a word");
-    let mut input = String::new();
-    let _ = io::stdin().read_line(&mut input).expect("Input error!");
-    //crypt_mnd::encode_base64(&input);
-    let output = encode::encode_base64(&input);
-    println!("Encode output: {}", output);
-    println!("Decode output: {}",decode::decode_base64(&output));
-    /*let mut m = mnd::Matrix {
-        matrix: Default::default()
-    };
-
-    m.matrix[0][0] = "[A01]".to_string();
-    m.matrix[0][1] = "[A02]".to_string();
-    m.matrix[0][2] = "[A03]".to_string();
-    m.matrix[1][0] = "[B01]".to_string();
-    m.matrix[1][1] = "[B02]".to_string();
-    m.matrix[1][2] = "[B03]".to_string();
-    m.matrix[2][0] = "[C01]".to_string();
-    m.matrix[2][1] = "[C02]".to_string();
-    m.matrix[2][2] = "[C03]".to_string();
-    
-    m.show_matrix();*/
+    let path = "/home/cube/Documentos/delete/vscode/github/password_manager/test.txt";
+    match reader(path) {
+        Ok(content) => {
+            let output = encode::encode_base64(&content);
+            writer(path, &output);
+            println!("{}", output);
+        },
+        Err(_) => eprintln!(),
+    }
 }
